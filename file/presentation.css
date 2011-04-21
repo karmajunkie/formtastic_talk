@@ -1,0 +1,17 @@
+.form{
+  margin: 50px;
+}
+
+.form form{
+  border: 1px solid black;
+  padding: 20px;
+  
+}
+.form form fieldset{
+  border: 2px groove threedface;
+  margin: 5px;
+  padding:5px;
+}
+.form form fieldset legend{
+  padding: 3px;
+}

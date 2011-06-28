@@ -15,3 +15,11 @@
 .form form fieldset legend{
   padding: 3px;
 }
+
+.personal-info {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  font-size: 18px;
+}
+

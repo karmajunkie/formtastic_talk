@@ -2,6 +2,17 @@
 #Formtastic#
 ##Lose the Zero and Get with the Hero##
 
+<div class="personal-info">
+<ul>
+<li>Keith Gaddis</li>
+<li>Inductive Applications
+<li>@karmajunkie</li>
+<li>keith.gaddis@advanceclaim.com</li>
+</ul>
+</div>
+
+
+
 !SLIDE smbullets incremental
 ##Every n00b's favorite Rails feature: scaffolding##
 ###Problems with scaffolds
@@ -42,6 +53,7 @@
 * intelligent fields
 * handles associations
 * semantic output
+* (still just FormBuilder)
 
 !SLIDE code smaller
 #Some data
@@ -351,7 +363,42 @@ en:
 
 <form accept-charset="UTF-8" action="/blogs" class="formtastic blog" id="new_blog" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="hVlGug1iWvv2sw0vp5yP7rRrRJ7Xmwl+ITcjDROinXY=" /></div> <fieldset class="inputs"><legend><span>Entry details</span></legend><ol> <li class="select optional" id="blog_author_input"><label for="blog_author_id">Author</label><select id="blog_author_id" name="blog[author_id]"><option value=""></option> <option value="1">karmajunkie</option> <option value="2">thoreau</option> <option value="3">shakespeare</option></select></li> <li class="string required" id="blog_title_input"><label for="blog_title">Title<abbr title="required">\*</abbr></label><input id="blog_title" maxlength="255" name="blog[title]" type="text" /></li> <li class="text required" id="blog_body_input"><label for="blog_body">Body<abbr title="required">\*</abbr></label><textarea id="blog_body" name="blog[body]" rows="3"></textarea></li> <li class="country optional" id="blog_country_input"><label for="blog_country">Country</label><select id="blog_country" name="blog[country]"><option value="Australia">Australia</option> <option value="Canada">Canada</option> <option value="United Kingdom">United Kingdom</option> <option value="United States">United States</option><option value="" disabled="disabled">-------------</option> <option value="Afghanistan">Afghanistan</option> <option value="Aland Islands">Aland Islands</option> <option value="Albania">Albania</option> <option value="Algeria">Algeria</option> <option value="American Samoa">American Samoa</option> <option value="Andorra">Andorra</option> <option value="Angola">Angola</option> <option value="Anguilla">Anguilla</option> <option value="Antarctica">Antarctica</option> <option value="Antigua And Barbuda">Antigua And Barbuda</option> <option value="Argentina">Argentina</option> <option value="Armenia">Armenia</option> <option value="Aruba">Aruba</option> <option value="Australia">Australia</option> </ol></fieldset>  <fieldset class="buttons"><ol><li class="commit"><input class="create" id="blog_submit" name="commit" type="submit" value="Create Blog" /></li></ol></fieldset> </form> 
  
- 
+!SLIDE  bullets
+#ALL NEW!!!
+#MORE BONUSY BONUSES!!!
+* Custom inputs 
+* (Requires Formtastic 2)
+* Create new inputs to support custom data types
+* (Totally stolen from documentation at https://github.com/justinfrench/formtastic)
 
-    
+!SLIDE code smaller
+##Changing the behavior of an existing input type
+
+    #app/inputs/string_input.rb
+    class StringInput < Formtastic::Inputs::StringInput
+        def to_html
+            puts "this is my modified version of StringInput"
+            super
+        end
+    end
+
+!SLIDE code smaller
+##New input type based on old
+
+    # f.input(:body, :as => :flexible_text)
+    class FlexibleTextInput < Formtastic::Inputs::StringInput
+        def input_html_options
+          super.merge(:class => "flexible-text-area")
+        end
+    end
+
+!SLIDE code smaller
+#ALL NEW INPUT!
+     # f.input(:created_at, :as => :date_picker)
+      class DatePickerInput
+        include Formtastic::Inputs::Base
+        def to_html
+          # ...
+        end
+      end
 
